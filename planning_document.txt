@@ -87,3 +87,10 @@ const Queue.prototype.addToBuffer = function (aircraft) => {
   this.requestBuffer.push(aircraft)
 };
 
+
+
+I want to post a plane by doing this:
+curl POST 'http://localhost:3000/enqueue?type=P&size=L'
+
+
+curl -X POST 'http://localhost:3000/enqueue' -H "Content-Type: application/json" -d '{"type":"P", "size":"L"}'

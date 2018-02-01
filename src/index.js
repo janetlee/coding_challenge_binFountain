@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { queueStart, aqmRequestProcess } from '../helpers/aircraftQueue';
-import aircraft from '../helpers/aircraftQueue';
+import Aircraft from '../helpers/aircraft';
 
 const app = express();
 
@@ -18,23 +18,15 @@ app.get('/start', (req, res) => {
 });
 
 app.post('/enqueue', (req, res) => {
-  console.log(req);
-  if (!req) {
-    res.status(500).send('Bad request');
-  } else {
-    console.log(req);
-    Queue.enqueue(aircraft);
-    res.status(201);
-  }
+  queueStart.enqueue({'type': req.body.type, 'size': req.body.size});
+  console.log('Current Queue Status: ', queueStart);
+  res.end();
 });
 
 app.get('/dequeue', (req, res) => {
-   if (!req) {
-    res.status(500).send('Bad request');
-  } else {
-    helper.dequeue();
-    res.status(201);
-  }
+  res.send(queueStart.dequeue());
+  console.log('Current Queue Status: ', queueStart);
+  res.end();
 });
 
 app.listen(3000, () => {

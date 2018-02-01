@@ -8,22 +8,12 @@ class Queue {
 
   enqueue(aircraft) {
     if (aircraft.type === 'P' && aircraft.size === 'L') {
-      // place in highest priority bucket
       this.first.push(aircraft);
-    }
-
-    if (aircraft.type === 'P' && aircraft.size === 'S') {
-      // place in 2nd highest priority bucket
+    } else if (aircraft.type === 'P' && aircraft.size === 'S') {
       this.second.push(aircraft);
-    }
-
-    if (aircraft.type === 'C' && aircraft.size === 'L') {
-      // place in 3rd highest priority bucket
+    } else if (aircraft.type === 'C' && aircraft.size === 'L') {
       this.third.push(aircraft);
-    }
-
-    if (aircraft.type === 'C' && aircraft.size === 'S') {
-      // place in 4th highest priority bucket
+    } else if (aircraft.type === 'C' && aircraft.size === 'S') {
       this.fourth.push(aircraft);
     }
   }
