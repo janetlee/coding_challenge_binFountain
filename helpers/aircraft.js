@@ -3,12 +3,12 @@ class Aircraft {
     this.type = type;
     this.size = size;
   }
+
+  aircraftType() {
+    return aircraft.type;
+  }
+
+  aircraftSize() {
+    return aircraft.size;
+  }
 }
-
-Aircraft.prototype.type = (aircraft) => {
-  return aircraft.type;
-};
-
-Aircraft.prototype.size = (aircraft) => {
-  return aircraft.size;
-};
