@@ -1,8 +1,6 @@
-class Queue {
-  constructor () {
-    this.aircraftQueue = [];
-    this.requestBuffer = [];
-  }
+var Queue  = function() {
+  this.aircraftQueue = [];
+  this.requestBuffer = [];
 }
 
 Queue.prototype.enqueue = function(aircraft) {
