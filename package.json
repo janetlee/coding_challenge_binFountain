@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha -R spec --require babel-core/register **/*.spec.js",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon --exec babel-node -- server/index.js"
+    "server-dev": "nodemon --exec babel-node --presets env,react -- src/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,10 +20,15 @@
   "homepage": "https://github.com/janetlee/coding_challenge_binFountain#readme",
   "dependencies": {
     "assert": "^1.4.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-airbnb": "^2.4.0",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "express": "^4.16.2",
+    "helmet": "^3.10.0",
     "mocha": "^5.0.0",
+    "node": "^9.4.0",
+    "nodemon": "^1.14.11",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
