@@ -25,7 +25,8 @@ URL is http://localhost:3000
 ## Development
 
 1. Fork this repo on github.
-2 Clone down your fork
+
+2. Clone down your fork
 ```git clone https://github.com/<username>/coding_challenge_binFountain.git```
 
 3. Move into the repo after its been cloned onto your machine by typing the following command.
@@ -34,8 +35,9 @@ URL is http://localhost:3000
 4. Follow the instructions in the 'Installing Dependencies' section.
 
 5. Launch by running the follow commands from the zodaka_challenge directory in separate terminal windows:
-```npm run react-dev```
-```npm run server-dev```
+```sh
+npm run react-dev
+npm run server-dev```
 
 6. Start queueing planes by entering type, size and aircraft ID.
 
