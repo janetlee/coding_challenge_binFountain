@@ -8,6 +8,7 @@ class Dequeue extends React.Component {
   }
 
   render() {
+    let aircraft = this.props.dequeued;
     return (
       <div className='header'>
         <button
@@ -17,6 +18,17 @@ class Dequeue extends React.Component {
         >
           Dequeue
         </button>
+        <div className='dequeuedPlane'>
+          <span className='dequeuedPlane'>
+            {aircraft.type}
+          </span>
+          <span className='dequeuedPlane'>
+            {aircraft.size}
+          </span>
+          <span className='dequeuedPlane'>
+            {aircraft.aircraftId}
+          </span>
+        </div>
       </div>
     );
   }

@@ -29,7 +29,6 @@ describe('Server', function() {
     it('Should 404 when asked for a nonexistent route', () => {
       chai.request('http://localhost:3000')
         .get('/arglebargle')
-      // Wait for response to return and then check status code
         waitForThen(
           () => { res._ended; },
           () => {
@@ -50,5 +49,4 @@ describe('Server', function() {
       }
     );
   })
-  // done();
 });

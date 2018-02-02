@@ -23,7 +23,4 @@ const QueueEntry = ({aircraft, index}) => {
 
 };
 
-
-
-
 export default QueueEntry;

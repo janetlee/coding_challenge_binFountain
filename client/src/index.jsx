@@ -21,7 +21,8 @@ class App extends React.Component{
   handleEnqueue(aircraftType, aircraftSize, aircraftId) {
     (async () => {
       try {
-        const response = await axios.post('/enqueue', { aircraftType, aircraftSize, aircraftId });
+        const response = await axios.post('/enqueue',
+          { aircraftType, aircraftSize, aircraftId });
         const data = response.data;
 
         if (data) {
@@ -74,7 +75,6 @@ class App extends React.Component{
   }
 
   render() {
-    console.log(Object.entries(this.state.queue));
     if(Object.entries(this.state.queue).length === 0) {
       this.createQueue();
       return (
