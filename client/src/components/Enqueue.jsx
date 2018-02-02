@@ -5,8 +5,8 @@ class Enqueue extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      aircraftType: '',
-      aircraftSize: '',
+      aircraftType: 'P',
+      aircraftSize: 'L',
       aircraftId: ''
     };
 

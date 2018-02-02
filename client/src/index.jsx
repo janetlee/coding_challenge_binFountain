@@ -10,7 +10,7 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      queue: {}
+      queue: ''
     }
 
     this.handleEnqueue = this.handleEnqueue.bind(this);
@@ -38,7 +38,6 @@ class App extends React.Component{
 
   handleDequeue() {
     console.log('dequeing a plane');
-    // function to handle dequeing the next plane
     (async () => {
       try {
         const response = await axios.get('/dequeue');
@@ -53,8 +52,26 @@ class App extends React.Component{
     })();
   }
 
+  createQueue(){
+    console.log('Make a queue');
+    (async () => {
+      try {
+        const response = await axios.get('/start');
+        const data = response.data;
+
+        if (data) {
+          console.log(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }
+
   render() {
-    return (
+    if(this.state.queue !== {}) {
+      this.createQueue();
+      return (
       <div>
         <div className='Title'>My Aircraft Queue Management System</div>
         <Enqueue className="Enqueue"
@@ -69,7 +86,24 @@ class App extends React.Component{
         />
       </div>
     )
-  }
+
+    } else {
+      return (
+      <div>
+        <div className='Title'>My Aircraft Queue Management System</div>
+        <Enqueue className="Enqueue"
+          handleEnqueue={this.handleEnqueue}
+          aircraft={this.state.aircraft}
+        />
+        <Queue className="Queue"
+          queue={this.state.queue}
+        />
+        <Dequeue className="Dequeue"
+          handleDequeue={this.handleDequeue}
+        />
+      </div>
+    )
+  }}
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 app.get('/start', (req, res) => {
-  console.log('INITIATE QUEUE');
   aqmRequestProcess();
   res.send('Initiated queue');
 });
@@ -35,7 +34,6 @@ app.post('/enqueue', (req, res) => {
   }
   console.log('Current Queue Status: ', queueStart);
   res.status(201)
-    // .send('Queued aircraft: ' + aircraftType + ' ' + aircraftSize + ' ' + aircraftId + ' ' + JSON.stringify(queueStart));
     .send(JSON.stringify(queueStart));
   res.end();
 });
