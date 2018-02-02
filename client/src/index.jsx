@@ -10,7 +10,8 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      queue: ''
+      queue: {},
+      dequeued: ''
     }
 
     this.handleEnqueue = this.handleEnqueue.bind(this);
@@ -45,6 +46,10 @@ class App extends React.Component{
 
         if (data) {
           console.log(data);
+          this.setState({
+            queue: data.queue,
+            dequeued: data.dequeued
+          });
         }
       } catch (error) {
         console.error(error);
@@ -69,7 +74,8 @@ class App extends React.Component{
   }
 
   render() {
-    if(this.state.queue !== {}) {
+    console.log(Object.entries(this.state.queue));
+    if(Object.entries(this.state.queue).length === 0) {
       this.createQueue();
       return (
       <div>
@@ -83,6 +89,7 @@ class App extends React.Component{
         />
         <Dequeue className="Dequeue"
           handleDequeue={this.handleDequeue}
+          dequeued={this.state.dequeued}
         />
       </div>
     )
@@ -100,6 +107,7 @@ class App extends React.Component{
         />
         <Dequeue className="Dequeue"
           handleDequeue={this.handleDequeue}
+          dequeued={this.state.dequeued}
         />
       </div>
     )

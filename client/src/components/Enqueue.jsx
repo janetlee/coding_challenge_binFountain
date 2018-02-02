@@ -56,7 +56,7 @@ class Enqueue extends React.Component {
         />
         <button
           onClick={() => {
-            console.log('Clicked!');
+            // console.log('Clicked!');
             this.props.handleEnqueue(
             this.state.aircraftType,
             this.state.aircraftSize,

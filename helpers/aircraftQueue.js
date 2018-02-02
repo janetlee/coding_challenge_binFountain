@@ -7,7 +7,7 @@ class Queue {
   }
 
   enqueue(aircraft) {
-    console.log('QUEUEING AIRCRAFT: ', aircraft);
+    // console.log('QUEUEING AIRCRAFT: ', aircraft);
     if (aircraft.type === 'P' && aircraft.size === 'L') {
       this.first.push(aircraft);
     } else if (aircraft.type === 'P' && aircraft.size === 'S') {

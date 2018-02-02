@@ -11,13 +11,16 @@ const Queue = ({ queue }) => {
           <QueueEntry aircraft={aircraft} key={index} index={index}/>
         )}
        {queue.second.map((aircraft, index) =>
-          <QueueEntry aircraft={aircraft} key={index} index={index}/>
+          <QueueEntry aircraft={aircraft} key={index}
+          index={queue.first.length + index}/>
         )}
        {queue.third.map((aircraft, index) =>
-          <QueueEntry aircraft={aircraft} key={index} index={index}/>
+          <QueueEntry aircraft={aircraft} key={index}
+          index={queue.first.length + queue.second.length + index}/>
         )}
        {queue.fourth.map((aircraft, index) =>
-          <QueueEntry aircraft={aircraft} key={index} index={index}/>
+          <QueueEntry aircraft={aircraft} key={index}
+          index={queue.first.length + queue.second.length + queue.third.length + index}/>
         )}
 
       </div>

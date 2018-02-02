@@ -39,7 +39,9 @@ app.post('/enqueue', (req, res) => {
 });
 
 app.get('/dequeue', (req, res) => {
-  res.send(queueStart.dequeue());
+  let body = {'queue': queueStart};
+  body.dequeued = queueStart.dequeue();
+  res.send(body);
   console.log('Current Queue Status: ', queueStart);
   res.end();
 });
