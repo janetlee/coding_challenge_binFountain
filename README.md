@@ -35,9 +35,10 @@ URL is http://localhost:3000
 4. Follow the instructions in the 'Installing Dependencies' section.
 
 5. Launch by running the follow commands from the zodaka_challenge directory in separate terminal windows:
-```sh
+```
 npm run react-dev
-npm run server-dev```
+npm run server-dev
+```
 
 6. Start queueing planes by entering type, size and aircraft ID.
 
@@ -47,6 +48,6 @@ npm run server-dev```
 ### Installing Dependencies
 
 From within the root directory:
-```sh
+```
 npm install
 ```
