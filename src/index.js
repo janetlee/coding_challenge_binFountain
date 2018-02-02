@@ -22,19 +22,19 @@ app.post('/enqueue', (req, res) => {
   let aircraftSize = req.body.aircraftSize;
   let aircraftId = req.body.aircraftId;
 
-  if (req.body.aircraftId !== null &&
-    req.body.aircraftId !== undefined &&
-    !Array.isArray(req.body.aircraftId)) {
+  if (aircraftId !== null &&
+    aircraftId !== undefined &&
+    !Array.isArray(aircraftId)) {
     queueStart.enqueue({
-      'type': req.body.aircraftType,
-      'size': req.body.aircraftSize,
-      'aircraftId': req.body.aircraftId
+      'type': aircraftType,
+      'size': aircraftSize,
+      'aircraftId': aircraftId
     })
   } else {
-    console.log('Invalid aircraftId: ', req.body.aircraftId);
+    console.log('Invalid aircraftId: ', aircraftId);
   }
   console.log('Current Queue Status: ', queueStart);
-  res.send('Queued aircraft: ', aircraftType, aircraftSize, aircraftId);
+  res.status(201).send('Queued aircraft: ' + aircraftType + ' ' + aircraftSize + ' ' + aircraftId);
   res.end();
 });
 
