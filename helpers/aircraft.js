@@ -1,7 +1,8 @@
 class Aircraft {
-  constructor(type, size) {
-    this.type = type;
-    this.size = size;
+  constructor(type, size, aircraftId) {
+    this.aircraftId = (typeof aircraftId === str || typeof aircraftId === number) ? aircraftId : null;
+    this.type = (type === 'P' || type === 'C') ? type : null;
+    this.size = (size === 'L' || size === 'S') ? size : null;
   }
 
   aircraftType() {
@@ -10,5 +11,9 @@ class Aircraft {
 
   aircraftSize() {
     return aircraft.size;
+  }
+
+  aircraftId() {
+    return aircraft.aircraftId;
   }
 }
