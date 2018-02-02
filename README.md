@@ -34,7 +34,7 @@ URL is http://localhost:3000
 
 4. Follow the instructions in the 'Installing Dependencies' section.
 
-5. Launch by running the follow commands from the zodaka_challenge directory in separate terminal windows:
+5. Launch by running the follow commands from the coding_challenge_binFountain directory in separate terminal windows:
 ```
 npm run react-dev
 npm run server-dev
