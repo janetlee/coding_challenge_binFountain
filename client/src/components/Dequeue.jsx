@@ -8,11 +8,8 @@ class Dequeue extends React.Component {
   }
 
   render() {
-    const { queue } = this.props;
     return (
       <div className='header'>
-        <div>Current Queue:</div>
-        <div>{ queue }</div>
         <button
           onClick={() => {
             console.log('Clicked!');

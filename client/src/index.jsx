@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Enqueue from './components/Enqueue.jsx';
+import Queue from './components/Queue.jsx';
 import Dequeue from './components/Dequeue.jsx';
 
 class App extends React.Component{
@@ -59,6 +60,9 @@ class App extends React.Component{
         <Enqueue className="Enqueue"
           handleEnqueue={this.handleEnqueue}
           aircraft={this.state.aircraft}
+        />
+        <Queue className="Queue"
+          queue={this.state.queue}
         />
         <Dequeue className="Dequeue"
           handleDequeue={this.handleDequeue}
