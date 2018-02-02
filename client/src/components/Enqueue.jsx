@@ -8,7 +8,22 @@ class Enqueue extends React.Component {
       aircraftType: '',
       aircraftSize: '',
       aircraftId: ''
-    }
+    };
+
+    this.handleAircraftType = this.handleAircraftType.bind(this);
+    this.handleAircraftSize = this.handleAircraftSize.bind(this);
+  }
+
+  handleAircraftType(event) {
+    this.setState({
+      aircraftType: event.target.value
+    });
+  }
+
+  handleAircraftSize(event) {
+    this.setState({
+      aircraftSize: event.target.value
+    });
   }
 
   handleAircraftEntry(event) {
@@ -21,23 +36,32 @@ class Enqueue extends React.Component {
     return (
       <div className='header'>
         <div>Enter aircraft parameters:</div>
-        <select list="aircraftTypes">
-          <option value="P">P-Passenger</option>
-          <option value="C">C-Cargo</option>
+        <select name="aircraftTypes"
+          value={this.state.aircraftType}
+          onChange={event => this.handleAircraftType(event)}>
+            <option value="P">P-Passenger</option>
+            <option value="C">C-Cargo</option>
         </select>
-        <select list="aircraftSizes">
-          <option value="S">S-Small</option>
-          <option value="L">L-Large</option>
+        <select name="aircraftSizes"
+          value={this.state.aircraftSize}
+          onChange={event => this.handleAircraftSize(event)}>
+            <option value="S">S-Small</option>
+            <option value="L">L-Large</option>
         </select>
         <input type="text"
+          name='aircraftIds'
+          placeholder="Please enter aircraftId"
           value={this.state.aircraftId}
-          onChange={event => this.handleAircraftEntry(event)}/>
+          onChange={event => this.handleAircraftEntry(event)}
+        />
         <button
-          onClick={() => this.props.handleEnqueue(
+          onClick={() => {
+            console.log('Clicked!');
+            this.props.handleEnqueue(
             this.state.aircraftType,
             this.state.aircraftSize,
             this.state.aircraftId
-            )}
+            )}}
         >
           Submit!
         </button>

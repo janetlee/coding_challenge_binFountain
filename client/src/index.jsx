@@ -17,23 +17,22 @@ class App extends React.Component{
     this.handleDequeue = this.handleDequeue.bind(this);
   }
 
-  handleEnqueue(aircraft) {
-    // function to enqueue aircraft
-    // (async () => {
-    //   try {
-    //     const response = await axios.post('', { searchTerm });
-    //     const data = response.data;
+  handleEnqueue(aircraftType, aircraftSize, aircraftId) {
+    console.log(aircraftType, aircraftSize, aircraftId);
+    console.log('invoking enqueue');
 
-    //     if (data) {
-    //       this.setState({
-    //         searchTerm: searchTerm,
-    //         tweets: data
-    //       })
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // })();
+    (async () => {
+      try {
+        const response = await axios.post('/enqueue', { aircraftType, aircraftSize, aircraftId });
+        const data = response.data;
+
+        if (data) {
+          console.log(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }
 
   handleDequeue() {
