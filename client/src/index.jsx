@@ -9,8 +9,7 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      queue: {},
-      aircraft: {}
+      queue: {}
     }
 
     this.handleEnqueue = this.handleEnqueue.bind(this);
@@ -28,6 +27,7 @@ class App extends React.Component{
           this.setState({
             queue: data
           });
+          this.forceUpdate();
         }
       } catch (error) {
         console.error(error);
