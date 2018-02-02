@@ -5,15 +5,16 @@ class Aircraft {
     this.size = (size === 'L' || size === 'S') ? size : null;
   }
 
-  aircraftType() {
-    return aircraft.type;
-  }
+  // Commenting out code b/c these methods are not currently needed
+  // aircraftType() {
+  //   return aircraft.type;
+  // }
 
-  aircraftSize() {
-    return aircraft.size;
-  }
+  // aircraftSize() {
+  //   return aircraft.size;
+  // }
 
-  aircraftId() {
-    return aircraft.aircraftId;
-  }
+  // aircraftId() {
+  //   return aircraft.aircraftId;
+  // }
 }

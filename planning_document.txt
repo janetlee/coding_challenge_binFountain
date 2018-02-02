@@ -94,3 +94,18 @@ curl POST 'http://localhost:3000/enqueue?type=P&size=L'
 
 
 curl -X POST 'http://localhost:3000/enqueue' -H "Content-Type: application/json" -d '{"type":"P", "size":"L"}'
+
+
+
+Ripped out these methods
+  aircraftType() {
+    return aircraft.type;
+  }
+
+  aircraftSize() {
+    return aircraft.size;
+  }
+
+  aircraftId() {
+    return aircraft.aircraftId;
+  }

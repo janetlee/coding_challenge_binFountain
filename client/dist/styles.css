@@ -1,0 +1,43 @@
+body {
+  background-color: #4B7096;
+  font-family: 'Tauri', sans-serif;
+}
+
+div .Title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+div .header {
+  font-family: 'Secular One', sans-serif;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-right: 30px;
+  margin-left: 0px;
+}
+
+button {
+  margin-left: 10px;
+}
+/*
+div .tweet-header {
+  font-family: 'Tauri', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div #tweet-list {
+  font-family: 'Secular One', sans-serif;
+  margin-left: 30px;
+}
+
+div .display-tweet {
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #E9EEFF;
+}*/
