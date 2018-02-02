@@ -77,41 +77,24 @@ class App extends React.Component{
   render() {
     if(Object.entries(this.state.queue).length === 0) {
       this.createQueue();
-      return (
-      <div>
-        <div className='Title'>My Aircraft Queue Management System</div>
-        <Enqueue className="Enqueue"
-          handleEnqueue={this.handleEnqueue}
-          aircraft={this.state.aircraft}
-        />
-        <Queue className="Queue"
-          queue={this.state.queue}
-        />
-        <Dequeue className="Dequeue"
-          handleDequeue={this.handleDequeue}
-          dequeued={this.state.dequeued}
-        />
-      </div>
-    )
+    }
 
-    } else {
-      return (
-      <div>
-        <div className='Title'>My Aircraft Queue Management System</div>
-        <Enqueue className="Enqueue"
-          handleEnqueue={this.handleEnqueue}
-          aircraft={this.state.aircraft}
-        />
-        <Queue className="Queue"
-          queue={this.state.queue}
-        />
-        <Dequeue className="Dequeue"
-          handleDequeue={this.handleDequeue}
-          dequeued={this.state.dequeued}
-        />
-      </div>
-    )
-  }}
+    return (
+    <div>
+      <div className='Title'>My Aircraft Queue Management System</div>
+      <Enqueue className="Enqueue"
+        handleEnqueue={this.handleEnqueue}
+        aircraft={this.state.aircraft}
+      />
+      <Queue className="Queue"
+        queue={this.state.queue}
+      />
+      <Dequeue className="Dequeue"
+        handleDequeue={this.handleDequeue}
+        dequeued={this.state.dequeued}
+      />
+    </div>
+  )}
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
