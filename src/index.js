@@ -34,7 +34,9 @@ app.post('/enqueue', (req, res) => {
     console.log('Invalid aircraftId: ', aircraftId);
   }
   console.log('Current Queue Status: ', queueStart);
-  res.status(201).send('Queued aircraft: ' + aircraftType + ' ' + aircraftSize + ' ' + aircraftId);
+  res.status(201)
+    // .send('Queued aircraft: ' + aircraftType + ' ' + aircraftSize + ' ' + aircraftId + ' ' + JSON.stringify(queueStart));
+    .send(JSON.stringify(queueStart));
   res.end();
 });
 

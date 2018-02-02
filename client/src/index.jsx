@@ -18,12 +18,29 @@ class App extends React.Component{
   }
 
   handleEnqueue(aircraftType, aircraftSize, aircraftId) {
-    console.log(aircraftType, aircraftSize, aircraftId);
-    console.log('invoking enqueue');
-
     (async () => {
       try {
         const response = await axios.post('/enqueue', { aircraftType, aircraftSize, aircraftId });
+        const data = response.data;
+
+        if (data) {
+          console.log(data);
+          this.setState({
+            queue: data
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }
+
+  handleDequeue() {
+    console.log('dequeing a plane');
+    // function to handle dequeing the next plane
+    (async () => {
+      try {
+        const response = await axios.get('/dequeue');
         const data = response.data;
 
         if (data) {
@@ -33,10 +50,6 @@ class App extends React.Component{
         console.error(error);
       }
     })();
-  }
-
-  handleDequeue() {
-    // function to handle dequeing the next plane
   }
 
   render() {
