@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded());
 
 app.get('/start', (req, res) => {
   aqmRequestProcess();
-  res.send('Initiated queue');
+  res.send(queueStart);
+  // res.send('Initiated queue: ' + JSON.stringify(queueStart));
 });
 
 app.post('/enqueue', (req, res) => {
@@ -29,13 +30,16 @@ app.post('/enqueue', (req, res) => {
       'size': aircraftSize,
       'aircraftId': aircraftId
     })
+    // console.log('Current Queue Status: ', JSON.stringify(queueStart));
+    res.status(201)
+      .send(JSON.stringify(queueStart));
+    res.end();
   } else {
-    console.log('Invalid aircraftId: ', aircraftId);
+    console.log('Invalid request: ', req.body);
+    res.status(503)
+      .send(JSON.stringify(queueStart));
+    res.end();
   }
-  console.log('Current Queue Status: ', queueStart);
-  res.status(201)
-    .send(JSON.stringify(queueStart));
-  res.end();
 });
 
 app.get('/dequeue', (req, res) => {
