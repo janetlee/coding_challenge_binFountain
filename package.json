@@ -4,7 +4,7 @@
   "description": "Queuing app coding challenge exercise",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec --require babel-core/register **/*.spec.js",
+    "test": "mocha -R spec --require babel-core/register **/*.spec.js --exit",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon --exec babel-node --presets env,react -- src/index.js"
   },
