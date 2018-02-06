@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
-import { queueStart, aqmRequestProcess } from '../helpers/aircraftQueue';
+import db from '../db/index.js';
+// import { queueStart, aqmRequestProcess } from '../helpers/aircraftQueue';
 import Aircraft from '../helpers/aircraft';
 
 const app = express();

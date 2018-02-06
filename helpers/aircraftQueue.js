@@ -1,3 +1,4 @@
+// old code for making an aircraft queue
 class Queue {
   constructor() {
     this.first = [];
