@@ -12,33 +12,37 @@ app.use(express.static(__dirname + './../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.get('/start', (req, res) => {
-  aqmRequestProcess();
-  res.send(queueStart);
+// Commented out because the queue is not a hashmap anymore.
+// Refactoring to a table instead.
+// app.get('/start', (req, res) => {
+//   aqmRequestProcess();
+//   res.send(queueStart);
   // res.send('Initiated queue: ' + JSON.stringify(queueStart));
-});
+// });
 
 app.post('/enqueue', (req, res) => {
   let aircraftType = req.body.aircraftType;
   let aircraftSize = req.body.aircraftSize;
   let aircraftId = req.body.aircraftId;
 
+  console.log(req.body.aircraftType, req.body.aircraftSize, req.body.aircraftId);
+
   if (aircraftId !== null &&
     aircraftId !== undefined &&
     !Array.isArray(aircraftId)) {
-    queueStart.enqueue({
+    db.enqueue({
       'type': aircraftType,
       'size': aircraftSize,
       'aircraftId': aircraftId
     })
     // console.log('Current Queue Status: ', JSON.stringify(queueStart));
     res.status(201)
-      .send(JSON.stringify(queueStart));
+      // .send(JSON.stringify(queueStart));
     res.end();
   } else {
     console.log('Invalid request: ', req.body);
     res.status(503)
-      .send(JSON.stringify(queueStart));
+      // .send(JSON.stringify(queueStart));
     res.end();
   }
 });
