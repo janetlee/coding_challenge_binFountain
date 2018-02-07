@@ -16,6 +16,7 @@ class App extends React.Component{
 
     this.handleEnqueue = this.handleEnqueue.bind(this);
     this.handleDequeue = this.handleDequeue.bind(this);
+    this.handleQueue = this.handleQueue.bind(this);
   }
 
   handleEnqueue(aircraftType, aircraftSize, aircraftId) {
@@ -58,27 +59,30 @@ class App extends React.Component{
     })();
   }
 
-  // createQueue(){
-  //   console.log('Make a queue');
-  //   (async () => {
-  //     try {
-  //       const response = await axios.get('/start');
-  //       const data = response.data;
+  handleQueue() {
+    console.log('Clicked Refresh');
+    (async () => {
+      try {
+        const response = await axios.get('/queue');
+        const data = response.data;
+        console.log(data);
 
-  //       if (data) {
-  //         console.log(data);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   })();
-  // }
+        if (data) {
+          this.setState({
+            queue: data
+          });
+        console.log(this.state.queue);
+
+          this.forceUpdate();
+        }
+      } catch (error) {
+        console.log(this.state);
+        console.error(error, this.state);
+      }
+    })();
+  }
 
   render() {
-    if(Object.entries(this.state.queue).length === 0) {
-      // this.createQueue();
-    }
-
     return (
     <div>
       <div className='Title'>My Aircraft Queue Management System</div>
@@ -87,6 +91,7 @@ class App extends React.Component{
         aircraft={this.state.aircraft}
       />
       <Queue className="Queue"
+        handleQueue={this.handleQueue}
         queue={this.state.queue}
       />
       <Dequeue className="Dequeue"

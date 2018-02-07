@@ -41,6 +41,24 @@ app.post('/enqueue', async (req, res, err) => {
 
 });
 
+
+app.get('/queue', async (req, res, err) => {
+
+  if (req) {
+    db.callingQueue()
+    .then(body => {
+      res.status(201)
+      res.send(JSON.stringify(body));
+      res.end();
+    })
+  } else {
+    console.log('Invalid request: ', req.body);
+    res.status(503)
+      .send('Invalid request');
+    res.end();
+  }
+});
+
 app.get('/dequeue', (req, res) => {
   let body = {'queue': queueStart};
   body.dequeued = queueStart.dequeue();

@@ -66,15 +66,7 @@ const callEnqueue = async (data) => {
 
 
 const currentQueue = () => {
-  console.log('GETTING CURRENT QUEUE');
   return Queue.find().sort({type: -1, size: 1, enqueued_at: 1});
-  // ((err, queueItems) => {
-  //   if(err) {
-  //     return err;
-  //   } else {
-  //     return queueItems;
-  //   }
-  // });
 };
 
 const callingQueue = async () => {
