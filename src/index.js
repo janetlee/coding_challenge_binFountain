@@ -43,7 +43,6 @@ app.post('/enqueue', async (req, res, err) => {
 
 
 app.get('/queue', async (req, res, err) => {
-
   if (req) {
     db.callingQueue()
     .then(body => {
@@ -60,11 +59,14 @@ app.get('/queue', async (req, res, err) => {
 });
 
 app.get('/dequeue', (req, res) => {
-  let body = {'queue': queueStart};
-  body.dequeued = queueStart.dequeue();
-  res.send(body);
-  console.log('Current Queue Status: ', queueStart);
-  res.end();
+    db.dequeue();
+
+    db.callingQueue()
+    .then(body => {
+      res.status(201)
+      res.send(JSON.stringify(body));
+      res.end();
+    })
 });
 
 app.listen(3000, () => {

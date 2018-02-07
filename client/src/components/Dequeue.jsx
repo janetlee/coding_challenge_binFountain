@@ -13,7 +13,6 @@ class Dequeue extends React.Component {
       <div className='header'>
         <button
           onClick={() => {
-            console.log('Clicked!');
             this.props.handleDequeue()}}
         >
           Dequeue

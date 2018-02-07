@@ -64,9 +64,25 @@ const callEnqueue = async (data) => {
 };
 
 
+const dequeue = () => {
+  currentQueue()
+  .then(results => {
+    let dequeuingPlane = results[0];
+    return dequeuingPlane;
+  })
+  .then(dequeuingPlane => {
+    return Queue.findByIdAndUpdate({
+      '_id': dequeuingPlane._id},
+      {$set: {queue_status: 'D', dequeued_at: Date.now()}})
+    .then(result=> console.log(JSON.stringify(result)))
+  })
+};
 
 const currentQueue = () => {
-  return Queue.find().sort({type: -1, size: 1, enqueued_at: 1});
+  return Queue.find()
+    .where('dequeued_at')
+    .equals(null)
+    .sort({type: -1, size: 1, enqueued_at: 1});
 };
 
 const callingQueue = async () => {
@@ -99,6 +115,6 @@ const priorityChecker = aircraft => {
 }
 
 module.exports.callEnqueue = callEnqueue;
-// module.exports.dequeue = dequeue;
+module.exports.dequeue = dequeue;
 module.exports.currentQueue = currentQueue;
 module.exports.callingQueue = callingQueue;

@@ -2,7 +2,7 @@ import React from 'react';
 import QueueEntry from './QueueEntry.jsx';
 
 const Queue = ({ queue, handleQueue }) => {
-  if (queue.length > 0) {
+  if (queue.length) {
     return (
       <div className='queue-list'>
         <div>Current Queue:</div>

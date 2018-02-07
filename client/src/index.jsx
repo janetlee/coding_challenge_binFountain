@@ -25,7 +25,6 @@ class App extends React.Component{
         const response = await axios.post('/enqueue',
           { aircraftType, aircraftSize, aircraftId });
         const data = response.data;
-        console.log(data);
 
         if (data) {
           this.setState({
@@ -47,10 +46,8 @@ class App extends React.Component{
         const data = response.data;
 
         if (data) {
-          console.log(data);
           this.setState({
-            queue: data.queue,
-            dequeued: data.dequeued
+            queue: data
           });
         }
       } catch (error) {
@@ -71,8 +68,6 @@ class App extends React.Component{
           this.setState({
             queue: data
           });
-        console.log(this.state.queue);
-
           this.forceUpdate();
         }
       } catch (error) {
