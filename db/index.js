@@ -49,8 +49,7 @@ Queue.sync().then(() => {
 });
 
 const enqueue = (aircraft) => {
-  console.log(aircraft);
-
+  // Before making the aircraft you could see if it exists first in the system before making a duplicate entry.
   Aircraft.create({
     aircraft_tail_id: aircraft.aircraftId,
     type: aircraft.type,
@@ -63,7 +62,7 @@ const enqueue = (aircraft) => {
       queue_status: 'Q',
       priority: priorityChecker(aircraft)
     })
-  })
+  });
 };
 
 const dequeue = () => {
@@ -90,18 +89,39 @@ const priorityChecker = aircraft => {
 }
 
 const currentQueue = () => {
-  Queue.findAll({
+  console.log('currentQueue');
+   return Queue.findAll({
     order: [
-      ['type', 'DESC '],
-      ['size', 'ASC'],
+      ['priority', 'ASC'],
       ['enqueued_at','ASC']
-    ],
+    ]
+    ,
     where: {
       dequeued_at: null
     }
-  });
+  })
+  .then(data => {
+    return data.map(element => {
+      return element.dataValues;
+    })
+  })
 };
 
+const callingQueue = async () => {
+  console.log('callingQueue');
+  let results;
+
+  try {
+    results = await currentQueue();
+  }
+  catch(e) {
+    console.log('ERRORING');
+  }
+
+  return results;
+};
 
 module.exports.enqueue = enqueue;
 module.exports.dequeue = dequeue;
+module.exports.currentQueue = currentQueue;
+module.exports.callingQueue = callingQueue;

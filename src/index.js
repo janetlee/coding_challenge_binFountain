@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import db from '../db/index.js';
-// import { queueStart, aqmRequestProcess } from '../helpers/aircraftQueue';
 import Aircraft from '../helpers/aircraft';
 
 const app = express();
@@ -12,39 +11,34 @@ app.use(express.static(__dirname + './../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// Commented out because the queue is not a hashmap anymore.
-// Refactoring to a table instead.
-// app.get('/start', (req, res) => {
-//   aqmRequestProcess();
-//   res.send(queueStart);
-  // res.send('Initiated queue: ' + JSON.stringify(queueStart));
-// });
-
-app.post('/enqueue', (req, res) => {
+app.post('/enqueue', async (req, res, err) => {
   let aircraftType = req.body.aircraftType;
   let aircraftSize = req.body.aircraftSize;
   let aircraftId = req.body.aircraftId;
-
-  console.log(req.body.aircraftType, req.body.aircraftSize, req.body.aircraftId);
+  // console.log(req.body.aircraftType, req.body.aircraftSize, req.body.aircraftId);
 
   if (aircraftId !== null &&
     aircraftId !== undefined &&
     !Array.isArray(aircraftId)) {
-    db.enqueue({
-      'type': aircraftType,
-      'size': aircraftSize,
-      'aircraftId': aircraftId
-    })
-    // console.log('Current Queue Status: ', JSON.stringify(queueStart));
-    res.status(201)
-      // .send(JSON.stringify(queueStart));
-    res.end();
+      db.enqueue({
+        'type': aircraftType,
+        'size': aircraftSize,
+        'aircraftId': aircraftId
+      })
+
+      db.callingQueue()
+      .then(body => {
+        res.status(201)
+        res.send(JSON.stringify(body));
+        res.end();
+      })
   } else {
     console.log('Invalid request: ', req.body);
     res.status(503)
-      // .send(JSON.stringify(queueStart));
+      .send('Invalid request');
     res.end();
   }
+
 });
 
 app.get('/dequeue', (req, res) => {

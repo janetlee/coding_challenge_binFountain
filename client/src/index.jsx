@@ -24,9 +24,10 @@ class App extends React.Component{
         const response = await axios.post('/enqueue',
           { aircraftType, aircraftSize, aircraftId });
         const data = response.data;
+        console.log('Response back to client: ', data);
 
         if (data) {
-          console.log(data);
+          // console.log(data);
           this.setState({
             queue: data
           });
@@ -58,25 +59,25 @@ class App extends React.Component{
     })();
   }
 
-  createQueue(){
-    console.log('Make a queue');
-    (async () => {
-      try {
-        const response = await axios.get('/start');
-        const data = response.data;
+  // createQueue(){
+  //   console.log('Make a queue');
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get('/start');
+  //       const data = response.data;
 
-        if (data) {
-          console.log(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }
+  //       if (data) {
+  //         console.log(data);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   })();
+  // }
 
   render() {
     if(Object.entries(this.state.queue).length === 0) {
-      this.createQueue();
+      // this.createQueue();
     }
 
     return (
