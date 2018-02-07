@@ -20,15 +20,14 @@ app.post('/enqueue', async (req, res, err) => {
   if (aircraftId !== null &&
     aircraftId !== undefined &&
     !Array.isArray(aircraftId)) {
-      // db.enqueue({
-      //   'type': aircraftType,
-      //   'size': aircraftSize,
-      //   'aircraftId': aircraftId
-      // })
+      db.callEnqueue({
+        'type': aircraftType,
+        'size': aircraftSize,
+        'aircraftId': aircraftId
+      })
 
       db.callingQueue()
       .then(body => {
-        // console.log(body);
         res.status(201)
         res.send(JSON.stringify(body));
         res.end();

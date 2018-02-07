@@ -14,7 +14,7 @@ db.once('open', function() {
 
 const aircraftQueue = mongoose.Schema({
   id: {type: Number,  autoIncrement: true, allowNull: false,  primaryKey: true},
-  aircraft_tail_id: {type: String, allowNull: false},
+  aircraftId: {type: String, allowNull: false},
   type: {type: String, allowNull: false},
   size: {type: String, allowNull: false},
   queue_status: {type: String},
@@ -29,7 +29,7 @@ const enqueue = (data => {
   console.log('Inside enqueue function');
 
   var aircraft = {
-    aircraft_tail_id: data.aircraftId,
+    aircraftId: data.aircraftId,
     type: data.type,
     size: data.size,
     queue_status: 'Q',
@@ -43,7 +43,6 @@ const enqueue = (data => {
   queue.save()
     .then(data => {
       console.log("aircraft queued in database");
-      // callback(null, data);
     })
     .catch(err => {
       console.log(err);
@@ -51,16 +50,31 @@ const enqueue = (data => {
     });
 });
 
+const callEnqueue = async (data) => {
+  console.log('callingQueue');
+  let results;
+
+  try {
+    results = await enqueue(data);
+  }
+  catch(e) {
+    console.log('ERRORING', e);
+  }
+  return results;
+};
+
+
+
 const currentQueue = () => {
   console.log('GETTING CURRENT QUEUE');
-  return Queue.find({}, (err, queueItems) => {
-    if(err) {
-      return err;
-    } else {
-      // console.log(queueItems);
-      return queueItems;
-    }
-  });
+  return Queue.find().sort({type: -1, size: 1, enqueued_at: 1});
+  // ((err, queueItems) => {
+  //   if(err) {
+  //     return err;
+  //   } else {
+  //     return queueItems;
+  //   }
+  // });
 };
 
 const callingQueue = async () => {
@@ -73,7 +87,6 @@ const callingQueue = async () => {
   catch(e) {
     console.log('ERRORING', e);
   }
-  // console.log(results);
   return results;
 };
 
@@ -93,7 +106,7 @@ const priorityChecker = aircraft => {
   }
 }
 
-module.exports.enqueue = enqueue;
+module.exports.callEnqueue = callEnqueue;
 // module.exports.dequeue = dequeue;
 module.exports.currentQueue = currentQueue;
 module.exports.callingQueue = callingQueue;
