@@ -1,77 +1,82 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('aircraft_queue', 'binaryfountain', '', {
-  host: 'localhost',
-  dialect: 'mysql',
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/aircraftQueue');
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
+var db = mongoose.connection;
+
+db.on('error', function() {
+  console.log('mongoose connection error');
 });
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-const Aircraft = sequelize.define('aircraft', {
-  id: {type: Sequelize.INTEGER,  autoIncrement: true, allowNull: false,  primaryKey: true},
-  aircraft_tail_id: {type: Sequelize.STRING(100), allowNull: false},
-  type: {type: Sequelize.STRING(1), allowNull: false},
-  size: {type: Sequelize.STRING(1), allowNull: false}
+db.once('open', function() {
+  console.log('mongoose connected successfully');
 });
 
-const Queue = sequelize.define('aircraft_queue', {
-  id: {type: Sequelize.INTEGER,  autoIncrement: true, allowNull: false,  primaryKey: true},
-  aircraft_id: {type: Sequelize.INTEGER, allowNull: false,
-    references: {
-      model: Aircraft,
-      key: 'id'
-    }},
-  queue_status: {type: Sequelize.STRING(2), comment: 'Q: in queue, D: dequeued'},
-  priority: {type: Sequelize.INTEGER, comment: '1: highest priority, 4: lowest priority'},
-  enqueued_at: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
-  dequeued_at: {type: Sequelize.DATE}
+
+const aircraftQueue = mongoose.Schema({
+  id: {type: Number,  autoIncrement: true, allowNull: false,  primaryKey: true},
+  aircraft_tail_id: {type: String, allowNull: false},
+  type: {type: String, allowNull: false},
+  size: {type: String, allowNull: false},
+  queue_status: {type: String},
+  priority: {type: Number},
+  enqueued_at: {type: String},
+  dequeued_at: {type: String}
 });
 
-Aircraft.sync().then(() => {
-  console.log('Aircraft table created');
-});
+const Queue = mongoose.model('aircraftQueue', aircraftQueue);
 
-Queue.sync().then(() => {
-  console.log('Aircraft_queues table created');
-});
+const enqueue = (data => {
+  console.log('Inside enqueue function');
 
-const enqueue = (aircraft) => {
-  // Before making the aircraft you could see if it exists first in the system before making a duplicate entry.
-  Aircraft.create({
-    aircraft_tail_id: aircraft.aircraftId,
-    type: aircraft.type,
-    size: aircraft.size
-  })
-  .then(queueing_aircraft_id => queueing_aircraft_id.get('id')) // this may have future async problems
-  .then(queueing_aircraft_id => {
-    Queue.create({
-      aircraft_id: queueing_aircraft_id,
-      queue_status: 'Q',
-      priority: priorityChecker(aircraft)
+  var aircraft = {
+    aircraft_tail_id: data.aircraftId,
+    type: data.type,
+    size: data.size,
+    queue_status: 'Q',
+    priority: priorityChecker(data),
+    enqueued_at: Date.now(),
+    dequeued_at: null
+  };
+
+  var queue = new Queue(aircraft);
+
+  queue.save()
+    .then(data => {
+      console.log("aircraft queued in database");
+      // callback(null, data);
     })
+    .catch(err => {
+      console.log(err);
+      console.log("unable to save to database");
+    });
+});
+
+const currentQueue = () => {
+  console.log('GETTING CURRENT QUEUE');
+  return Queue.find({}, (err, queueItems) => {
+    if(err) {
+      return err;
+    } else {
+      // console.log(queueItems);
+      return queueItems;
+    }
   });
 };
 
-const dequeue = () => {
-  // run currentQueue
-  /// return the first one out to the front end,
-  // mark it dequeued with a D, update the time and
+const callingQueue = async () => {
+  console.log('callingQueue');
+  let results;
 
-  console.log(currentQueue());
+  try {
+    results = await currentQueue();
+  }
+  catch(e) {
+    console.log('ERRORING', e);
+  }
+  // console.log(results);
+  return results;
 };
+
 
 const priorityChecker = aircraft => {
   if(aircraft.type === 'P' && aircraft.size ==='L') {
@@ -88,40 +93,7 @@ const priorityChecker = aircraft => {
   }
 }
 
-const currentQueue = () => {
-  console.log('currentQueue');
-   return Queue.findAll({
-    order: [
-      ['priority', 'ASC'],
-      ['enqueued_at','ASC']
-    ]
-    ,
-    where: {
-      dequeued_at: null
-    }
-  })
-  .then(data => {
-    return data.map(element => {
-      return element.dataValues;
-    })
-  })
-};
-
-const callingQueue = async () => {
-  console.log('callingQueue');
-  let results;
-
-  try {
-    results = await currentQueue();
-  }
-  catch(e) {
-    console.log('ERRORING');
-  }
-
-  return results;
-};
-
 module.exports.enqueue = enqueue;
-module.exports.dequeue = dequeue;
+// module.exports.dequeue = dequeue;
 module.exports.currentQueue = currentQueue;
 module.exports.callingQueue = callingQueue;

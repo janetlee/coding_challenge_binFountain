@@ -10,7 +10,7 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      queue: {},
+      queue: [],
       dequeued: ''
     }
 
@@ -24,10 +24,9 @@ class App extends React.Component{
         const response = await axios.post('/enqueue',
           { aircraftType, aircraftSize, aircraftId });
         const data = response.data;
-        console.log('Response back to client: ', data);
+        console.log(data);
 
         if (data) {
-          // console.log(data);
           this.setState({
             queue: data
           });
